@@ -1,0 +1,46 @@
+{% extends "hrProfile.html" %}
+
+{% block content %}
+<h1>Organization Details</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Name</th>
+      <th>Scheduling</th>
+      <th>Department</th>
+      <th>Team</th>
+      <th>Manager Name</th>
+      <th>Manager ID</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for employee in employees %}
+      <tr>
+        <td>{{ employee.Emp_Id }}</td>
+        <td>{{ employee.Name }}</td>
+        <td>{{ employee.Scheduling }}</td>
+        <td>{{ employee.Department }}</td>
+        <td>{{ employee.Team }}</td>
+        <td>{{ employee.Manager_Name }}</td>
+        <td>{{ employee.Manager_Id }}</td>
+        <td>{{ employee.Email }}</td>
+        <td>
+          <form method="POST" action="{% url 'organization' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ employee.id }}">
+            <button type="submit" name="edit_employee">Edit</button>
+            <button type="submit" name="delete_employee">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="9">No employees found.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

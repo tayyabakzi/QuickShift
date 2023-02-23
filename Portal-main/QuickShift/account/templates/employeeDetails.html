@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% extends "hrProfile.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="title">Employee Details</div>
+
+    <h2>Add Single Employee</h2>
+    <form method="POST" action="{% url 'employeeDetails' %}">
+      {% csrf_token %}
+      <div class="user__details">
+        <div class="input__box">
+          <span class="details">Emp Id</span>
+          <input type="text" name="Emp_Id" required>
+        </div>
+        <div class="input__box">
+          <span class="details">Name</span>
+          <input type="text" name="Name" required>
+        </div>
+        <div class="input__box">
+          <span class="details">Scheduling</span>
+          <input type="text" name="Scheduling" required>
+        </div>
+        <div class="input__box">
+          <span class="details">Department</span>
+          <input type="text" name="Department" required>
+        </div>
+        <div class="input__box">
+          <span class="details">Team</span>
+          <input type="text" name="Team" required>
+        </div>
+        <div class="input__box">
+          <span class="details">Manager Name</span>
+          <input type="text" name="Manager_Name" required>
+        </div>
+        <div class="input__box">
+          <span class="details">Manager Id</span>
+          <input type="text" name="Manager_Id" required>
+        </div>
+        <div class="input__box">
+          <span class="details">Email</span>
+          <input type="email" name="Email" required>
+        </div>
+      </div>
+      <div class="button">
+        <button type="submit" style="background-color: #4CAF50; color: white; font-size: 16px; padding: 8px 16px;">Add</button>
+      </div>
+    </form>
+
+    <h2>Upload CSV</h2>
+    <form method="POST" action="{% url 'employeeDetails' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="user__details">
+        <div class="input__box">
+          <span class="details">Upload CSV</span>
+          <input type="file" name="file" accept=".csv" required>
+        </div>
+      </div>
+      <div class="button">
+        <button type="submit" style="background-color: #4CAF50; color: white; font-size: 16px; padding: 8px 16px;">Upload</button>
+      </div>
+    </form>
+
+    <h2>Employee List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Emp Id</th>
+          <th>Name</th>
+          <th>Scheduling</th>
+          <th>Department</th>
+          <th>Team</th>
+          <th>Manager Name</th>
+          <th>Manager Id</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for employee in prompt.employees %}
+          <tr>
+            <td>{{ employee.Emp_Id }}</td>
+            <td>{{ employee.Name }}</td>
+            <td>{{ employee.Scheduling }}</td>
+            <td>{{ employee.Department }}</td>
+            <td>{{ employee.Team }}</td>
+            <td>{{ employee.Manager_Name }}</td>
+            <td>{{ employee.Manager_Id }}</td>
+            <td>{{ employee.Email }}</td>
+          </tr>
+        {% endfor %}
+{% endblock %}
